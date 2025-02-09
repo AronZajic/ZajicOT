@@ -1,70 +1,67 @@
-import pygame
-from os.path import join
-from os import walk
-
+import pygame as pg
 import sys
-
-WINDOW_WIDTH = 960
-WINDOW_HEIGHT = 720
-
-class Button:
-    def __init__(self, x, y, width, height, foreground_color, background_color, content, fontsize):
-        self.font = pygame.font.Font('Cascadia.ttf', fontsize) # load font
-        self.image = pygame.Surface((width, height))
-        self.image.fill(background_color) # fill the button surface with the background color
-        self.rect = self.image.get_frect(topleft=(x, y))
-        self.text = self.font.render(content, True, foreground_color) # render the text with the specified foreground color
-        self.text_rect = self.text.get_frect(center=(width/2, height/2)) # position the text in the center of the button
-        self.image.blit(self.text, self.text_rect) # draw the text onto the button surface
-
-    def is_pressed(self, position, pressed):
-        # check if the button is pressed based on the mouse position and the state of the mouse buttons
-        if self.rect.collidepoint(position): # check if the mouse is within the bounds of the button
-            if pressed[0]: # if the left mouse button is pressed
-                return True # button is pressed
-            return False # button is not pressed
-        return False # mouse is not over the button, so it's not pressed
+from settings import *
+from map import *
+from player import *
+from raycasting import *
+from object_renderer import *
 
 class Game:
     def __init__(self):
-        pygame.init() # initialize Pygame
-        self.display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-        pygame.display.set_caption("OT Game")
-        self.clock = pygame.time.Clock() # create a clock object for controlling frame rate
-        self.running = True
+        pg.init()
+        pg.mouse.set_visible(False)
+        self.screen = pg.display.set_mode(RES)
+        pg.event.set_grab(True)
+        self.clock = pg.time.Clock()
+        self.delta_time = 1
+        self.global_trigger = False
+        self.global_event = pg.USEREVENT + 0
+        pg.time.set_timer(self.global_event, 40)
+        self.new_game()
 
-    def start_screen(self):
-        # display start screen with a start button
-        start = True
-        start_button = Button(WINDOW_WIDTH//2-50, WINDOW_HEIGHT//2-20, 100, 50, pygame.Color('black'), pygame.Color('white'), 'Start', 32)
-        while start:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    start = False
-                    self.running = False # quit the game if the window is closed
-            mouse_position = pygame.mouse.get_pos()
-            mouse_pressed = pygame.mouse.get_pressed()
-            if start_button.is_pressed(mouse_position, mouse_pressed): # check if start button is pressed
-                start = False
-                self.run() # start the game
-            self.display_surface.blit(start_button.image, start_button.rect)
-            self.clock.tick(60)
-            pygame.display.update()
-    
+    def new_game(self):
+        self.map = Map(self)
+        self.player = Player(self)
+        self.object_renderer = ObjectRenderer(self)
+        self.raycasting = RayCasting(self)
+
+        pg.mixer.init()
+        self.theme = pg.mixer.music.load('resources/sound/theme.mp3')
+        pg.mixer.music.set_volume(0.3)
+        pg.mixer.music.play(-1)
+
+    def update(self):
+        self.player.update()
+        self.raycasting.update()
+        pg.display.flip()
+        self.delta_time = self.clock.tick(FPS)
+        pg.display.set_caption(f'{self.clock.get_fps() :.1f}')
+
+    def draw(self):
+        # self.screen.fill('black')
+        self.object_renderer.draw()
+
+        keys = pg.key.get_pressed()
+        if keys[pg.K_m]:
+            self.map.draw()
+            self.player.draw()
+
+    def check_events(self):
+        self.global_trigger = False
+        for event in pg.event.get():
+            if event.type == pg.QUIT or (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE):
+                pg.quit()
+                sys.exit()
+            elif event.type == self.global_event:
+                self.global_trigger = True
+
     def run(self):
-        # main game loop
-        while self.running:
-            delta = self.clock.tick() / 1000 # calculate time difference for frame rate independence
+        while True:
+            self.check_events()
+            self.update()
+            self.draw()
 
-            # handle events
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.running = False
 
-            pygame.display.update()  # update the display surface
-        pygame.quit()
-        sys.exit()
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     game = Game()
-    game.start_screen()
+    game.run()
