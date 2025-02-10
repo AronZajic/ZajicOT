@@ -10,8 +10,6 @@ class Player:
         self.angle = PLAYER_ANGLE
 
         self.rel = 0
-        self.health_recovery_delay = 700
-        self.time_prev = pg.time.get_ticks()
         self.diag_move_corr = 1 / math.sqrt(2)
 
     def movement(self):
