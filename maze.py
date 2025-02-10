@@ -2,6 +2,8 @@ import random
 
 empty = False
 wall = 1
+exit = 2
+enterance = 3
 
 # Function to generate a maze using Depth-First Search
 def generate_maze(width, height):
@@ -26,10 +28,10 @@ def generate_maze(width, height):
     # Add an exit at the bottom right corner
     for x in range(width - 2, 0, -1):
         if maze[height - 2][x] == empty:
-            maze[height - 1][x] = 2
+            maze[height - 1][x] = exit
             break
     
-    maze[1][0] = 3
+    maze[1][0] = enterance
 
     # print_maze(maze)
     return maze
