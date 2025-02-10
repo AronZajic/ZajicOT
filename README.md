@@ -37,19 +37,19 @@ Herné úrovne(bludiská) hry sa náhodne generujú pri čom veľkosť hracej pl
 
 ### 2.3 Návrh tried
 
-** Game: ** Hlavná trieda hry v ktorej sa vytvorí okno hry.
+**Game:** Hlavná trieda hry v ktorej sa vytvorí okno hry.
 
-** Player: ** Trieda ktorá reprezentuje hráča napríklad sa tu ukladá jeho pozícia. Trieda je ďalej zodpovedná pre testovanie kolízie zo stenami bludiska a ovládania hráča.
+**Player:** Trieda ktorá reprezentuje hráča napríklad sa tu ukladá jeho pozícia. Trieda je ďalej zodpovedná pre testovanie kolízie zo stenami bludiska a ovládania hráča.
 
-** Map: ** Trieda reprezentujúca mapu bludiska.
+**Map:** Trieda reprezentujúca mapu bludiska.
 
-** Maze: ** Súbor s pomocnými funkciami pre generovanie náhodného bludiska.
+**Maze:** Súbor s pomocnými funkciami pre generovanie náhodného bludiska.
 
-** ObjectRenderer: ** Trieda ktorá je zodpovedná za načítanie textúr pre steny bludiska a vykresľovanie daných stien.
+**ObjectRenderer:** Trieda ktorá je zodpovedná za načítanie textúr pre steny bludiska a vykresľovanie daných stien.
 
-** RayCasting: ** Trieda v ktorej sa robia výpočty pre vykresľovanie pseudo 3D sveta.
+**RayCasting:** Trieda v ktorej sa robia výpočty pre vykresľovanie pseudo 3D sveta.
 
-** Settings: ** Súbor uchovávajúci globálne nastavenia.
+**Settings:** Súbor uchovávajúci globálne nastavenia.
 
 # ChatGPT:
 
