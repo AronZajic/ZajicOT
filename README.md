@@ -51,6 +51,19 @@ Herné úrovne(bludiská) hry sa náhodne generujú pri čom veľkosť hracej pl
 
 **Settings:** Súbor uchovávajúci globálne nastavenia.
 
+# 3. Zvuk
+
+## 3.1 Hudba
+
+Hra má hudobný podmaz inšpirovaný hudbou Minecraftu.
+
+4. Ovládanie
+
+**WASD:** pohyb hráča po mape.
+**Myš:** Nasmerovanie viewportu
+**Klávesa M:** Zobrazenie mapy z hora(pre debugovanie a prípad keby sa hráč až moc stratil v bludisku)
+
+
 # ChatGPT:
 
 You said:
