@@ -9,7 +9,8 @@ import math
 
 light_grey = (200, 200, 200)
 
-key_iamge = pg.transform.scale_by(pg.image.load('resources/textures/key/1.png'), 2.3)
+key_image = pg.transform.scale_by(pg.image.load('resources/textures/key/1.png'), 2.3)
+coin_image = pg.transform.scale_by(pg.image.load('resources/textures/coin/0.png'), 0.3)
 
 class Game:
     def __init__(self):
@@ -24,7 +25,7 @@ class Game:
         self.coins = []
         self.num_coins = 0
         self.key = True
-        self.game_font = pg.font.Font('Cascadia.ttf', 64)
+        self.game_font = pg.font.Font('resources/Cascadia.ttf', 64)
         pg.time.set_timer(self.global_event, 40)
         self.new_game()
 
@@ -65,11 +66,13 @@ class Game:
 
         self.object_renderer.draw()
 
-        coin_text = self.game_font.render(f"Coins collected: {self.num_coins}", False, light_grey)
-        self.screen.blit(coin_text, (0, HEIGHT))
+        self.screen.blit(coin_image, (50, HEIGHT + 15))
+
+        coin_text = self.game_font.render(f" :{self.num_coins}", False, light_grey)
+        self.screen.blit(coin_text, (60, HEIGHT))
 
         if self.key:
-            self.screen.blit(key_iamge, (WIDTH - 100, HEIGHT))
+            self.screen.blit(key_image, (WIDTH - 100, HEIGHT))
 
         keys = pg.key.get_pressed()
         if keys[pg.K_m]:
