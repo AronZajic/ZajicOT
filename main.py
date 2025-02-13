@@ -9,7 +9,7 @@ import math
 
 light_grey = (200, 200, 200)
 
-key_iamge = pg.transform.scale_by(pg.image.load('resources/textures/key/0.png'), 2.3)
+key_iamge = pg.transform.scale_by(pg.image.load('resources/textures/key/1.png'), 2.3)
 
 class Game:
     def __init__(self):
@@ -33,7 +33,7 @@ class Game:
         self.map = Map(self)
         self.object_renderer = ObjectRenderer(self)
         self.raycasting = RayCasting(self)
-        self.key_sprite = Sprite(self, path='resources/textures/key/0.png', pos=(0, 0), scale=0.3)
+        self.key_sprite = AnimatedSprite(self, path='resources/textures/key/1.png', pos=(0, 0), scale=0.3)
 
         pg.mixer.init()
         self.theme = pg.mixer.music.load('resources/sound/theme.mp3')
@@ -75,6 +75,8 @@ class Game:
                 pg.draw.circle(self.screen, 'yellow', (coin.x * 100, coin.y * 100), 15)
             if not self.key:
                 pg.draw.circle(self.screen, 'blue', (self.key_sprite.x * 100, self.key_sprite.y * 100), 15)
+        if keys[pg.K_f]:
+            pg.display.toggle_fullscreen()
 
     def check_events(self):
         self.global_trigger = False

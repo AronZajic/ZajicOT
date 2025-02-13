@@ -71,6 +71,6 @@ class Map:
             x = random.randint(1, self.cols - 2)
             y = random.randint(1, self.rows - 2)
 
-        self.game.key_sprite = Sprite(self.game, path='resources/textures/key/0.png', pos=(x + 0.5, y + 0.5), scale=0.3)
+        self.game.key_sprite = AnimatedSprite(self.game, path='resources/textures/key/1.png', pos=(x + 0.5, y + 0.5), scale=0.3)
 
         self.get_map()
