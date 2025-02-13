@@ -69,8 +69,9 @@ class Player:
         if self.game.map.world_map[(x, y)] == 2 and self.game.key == True:
             self.game.level += 1
             self.game.key = False
-            self.x = 1.5
+            self.x = 1.1
             self.y = 1.5
+            self.angle = 0
             self.game.map.new_map(self.game.level)
 
     def draw(self):
