@@ -9,11 +9,13 @@ import math
 
 light_grey = (200, 200, 200)
 
+key = pg.transform.scale_by(pg.image.load('resources/textures/key/0.png'), 2.3)
+
 class Game:
     def __init__(self):
         pg.init()
         pg.mouse.set_visible(False)
-        self.screen = pg.display.set_mode((WIDTH, HEIGHT + 100))
+        self.screen = pg.display.set_mode((WIDTH, HEIGHT + 80))
         pg.event.set_grab(True)
         self.clock = pg.time.Clock()
         self.delta_time = 1
@@ -27,10 +29,12 @@ class Game:
         self.new_game()
 
     def new_game(self):
+        self.key = False
         self.player = Player(self)
         self.map = Map(self)
         self.object_renderer = ObjectRenderer(self)
         self.raycasting = RayCasting(self)
+        self.key_sprite = Sprite(self, path='resources/textures/key/0.png', pos=(0, 0), scale=0.3)
 
         pg.mixer.init()
         self.theme = pg.mixer.music.load('resources/sound/theme.mp3')
@@ -45,6 +49,10 @@ class Game:
             if math.dist((coin.x, coin.y), self.player.pos()) < 0.5:
                 self.coins.remove(coin)
                 self.num_coins += 1
+        if not self.key:
+            self.key_sprite.update()
+            if math.dist((self.key_sprite.x, self.key_sprite.y), self.player.pos()) < 0.5:
+                self.key = True
         pg.display.flip()
         self.delta_time = self.clock.tick(FPS)
         pg.display.set_caption(f'{self.clock.get_fps() :.1f}')
@@ -57,12 +65,17 @@ class Game:
         coin_text = self.game_font.render(f"Coins collected: {self.num_coins}", False, light_grey)
         self.screen.blit(coin_text, (0, HEIGHT))
 
+        if self.key:
+            self.screen.blit(key, (WIDTH - 100, HEIGHT))
+
         keys = pg.key.get_pressed()
         if keys[pg.K_m]:
             self.map.draw()
             self.player.draw()
             for coin in self.coins:
                 pg.draw.circle(self.screen, 'yellow', (coin.x * 100, coin.y * 100), 15)
+            if not self.key:
+                pg.draw.circle(self.screen, 'blue', (self.key_sprite.x * 100, self.key_sprite.y * 100), 15)
 
     def check_events(self):
         self.global_trigger = False

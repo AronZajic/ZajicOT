@@ -64,4 +64,13 @@ class Map:
 
             self.game.coins.append(AnimatedSprite(self.game, path='resources/textures/coin/0.png', pos=(x + 0.5, y + 0.5), scale=0.3))
 
+        x = random.randint(1, self.cols - 2)
+        y = random.randint(1, self.rows - 2)
+
+        while self.simple_map[y][x] != False or not (1 < x or 1 < y) or (x,y) in coin_pos:
+            x = random.randint(1, self.cols - 2)
+            y = random.randint(1, self.rows - 2)
+
+        self.game.key_sprite = Sprite(self.game, path='resources/textures/key/0.png', pos=(x + 0.5, y + 0.5), scale=0.3)
+
         self.get_map()
