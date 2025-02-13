@@ -69,9 +69,9 @@ class Player:
         if self.game.map.world_map[(x, y)] == 2 and self.game.key == True:
             self.game.level += 1
             self.game.key = False
-            self.game.map.new_map(self.game.level)
             self.x = 1.5
             self.y = 1.5
+            self.game.map.new_map(self.game.level)
 
     def draw(self):
         # pg.draw.line(self.game.screen, 'yellow', (self.x * 100, self.y * 100), (self.x * 100 + WIDTH * math.cos(self.angle), self.y * 100 + WIDTH * math. sin(self.angle)), 2)

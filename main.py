@@ -72,6 +72,9 @@ class Game:
         coin_text = self.game_font.render(f" :{self.num_coins}", False, light_grey)
         self.screen.blit(coin_text, (60, HEIGHT))
 
+        level_text = self.game_font.render(f"Level: {self.level}", False, light_grey)
+        self.screen.blit(level_text, ((WIDTH- level_text.width) / 2, HEIGHT))        
+
         if self.key:
             self.screen.blit(key_image, (WIDTH - 100, HEIGHT))
 
