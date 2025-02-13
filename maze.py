@@ -31,7 +31,7 @@ def generate_maze(width, height):
             maze[height - 1][x] = exit
             break
     
-    maze[1][0] = enterance
+    maze[0][1] = enterance
 
     # print_maze(maze)
     return maze

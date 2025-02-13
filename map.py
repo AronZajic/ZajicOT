@@ -1,6 +1,8 @@
 import pygame as pg
 from settings import *
 from maze import *
+from sprite import *
+import random
 
 _ = False
 
@@ -20,6 +22,8 @@ class Map:
     def __init__(self, game):
         self.game = game
         self.simple_map = simple_map
+        self.game.key = True
+        self.game.coins.append(AnimatedSprite(game, path='resources/textures/coin/0.png', pos=(5.5, 1.5), scale=0.3))
         self.world_map = {}
         self.rows = len(self.simple_map)
         self.cols = len(self.simple_map[0])
@@ -44,4 +48,16 @@ class Map:
     def new_map(self):
         self.world_map = {}
         self.simple_map = generate_maze(self.cols, self.rows)
+        self.game.coins = []
+
+        for i in range(5):
+            x = random.randint(1, self.cols - 2)
+            y = random.randint(1, self.rows - 2)
+
+            while self.simple_map[y][x] != False or not (1 < x or 1 < y):
+                x = random.randint(1, self.cols - 2)
+                y = random.randint(1, self.rows - 2)
+
+            self.game.coins.append(AnimatedSprite(self.game, path='resources/textures/coin/0.png', pos=(x + 0.5, y + 0.5), scale=0.3))
+
         self.get_map()

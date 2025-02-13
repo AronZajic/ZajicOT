@@ -1,6 +1,7 @@
 import pygame as pg
 from settings import *
 
+bg_color = pg.Color('grey12')
 
 class ObjectRenderer:
     def __init__(self, game):
@@ -19,6 +20,7 @@ class ObjectRenderer:
     def draw_background(self):
         pg.draw.rect(self.screen, CEILING_COLOR, (0, 0, WIDTH, HALF_HEIGHT))
         pg.draw.rect(self.screen, FLOOR_COLOR, (0, HALF_HEIGHT, WIDTH, HEIGHT))
+        pg.draw.rect(self.screen, bg_color, (0, HEIGHT, WIDTH, HEIGHT))
 
     def render_game_objects(self):
         list_objects = sorted(self.game.raycasting.objects_to_render, key=lambda t: t[0], reverse=True)
