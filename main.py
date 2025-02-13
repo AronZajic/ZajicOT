@@ -37,6 +37,8 @@ class Game:
 
         pg.mixer.init()
         self.theme = pg.mixer.music.load('resources/sound/theme.mp3')
+        self.coin_sound = pg.mixer.Sound('resources/sound/coin-sound.mp3')
+        self.key_sound = pg.mixer.Sound('resources/sound/key.wav')
         pg.mixer.music.set_volume(0.3)
         pg.mixer.music.play(-1)
 
@@ -48,10 +50,12 @@ class Game:
             if math.dist((coin.x, coin.y), self.player.pos()) < 0.5:
                 self.coins.remove(coin)
                 self.num_coins += 1
+                pg.mixer.Sound.play(self.coin_sound)
         if not self.key:
             self.key_sprite.update()
             if math.dist((self.key_sprite.x, self.key_sprite.y), self.player.pos()) < 0.5:
                 self.key = True
+                pg.mixer.Sound.play(self.key_sound)
         pg.display.flip()
         self.delta_time = self.clock.tick(FPS)
         pg.display.set_caption(f'{self.clock.get_fps() :.1f}')
