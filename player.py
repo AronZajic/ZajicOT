@@ -67,8 +67,9 @@ class Player:
 
     def check_exit(self, x, y):
         if self.game.map.world_map[(x, y)] == 2 and self.game.key == True:
+            self.game.level += 1
             self.game.key = False
-            self.game.map.new_map()
+            self.game.map.new_map(self.game.level)
             self.x = 1.5
             self.y = 1.5
 

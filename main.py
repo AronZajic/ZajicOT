@@ -30,6 +30,7 @@ class Game:
         self.new_game()
 
     def new_game(self):
+        self.level = 1
         self.player = Player(self)
         self.map = Map(self)
         self.object_renderer = ObjectRenderer(self)

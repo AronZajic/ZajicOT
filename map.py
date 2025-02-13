@@ -45,10 +45,32 @@ class Map:
                 pg.draw.rect(self.game.screen, 'blue', (pos[0] * 100, pos[1] * 100, 100, 100), 2)
 
 
-    def new_map(self):
+    def new_map(self, level):
         self.world_map = {}
-        self.simple_map = generate_maze(self.cols, self.rows)
         self.game.coins = []
+
+        if level == 2:
+            self.simple_map = [
+                [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                [3, _, _, _, _, _, _, _, _, _, _, _, _, _, 2],
+                [1, 1, 1, 1, 1, 1, _, _, _, 1, 1, 1, 1, 1, 1],
+                [_, _, _, _, _, 1, _, _, _, 1, _, _, _, _, _],
+                [_, _, _, _, _, 1, _, _, _, 1, _, _, _, _, _],
+                [_, _, _, _, _, 1, 1, 1, 1, 1, _, _, _, _, _],
+                [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
+                [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
+                [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
+            ]
+
+            self.game.coins.append(AnimatedSprite(self.game, path='resources/textures/coin/0.png', pos=(5.5, 1.5), scale=0.3))
+
+            self.game.key_sprite = AnimatedSprite(self.game, path='resources/textures/key/1.png', pos=(7 + 0.5, 4 + 0.5), scale=0.3)
+
+            self.get_map()
+
+            return
+
+        self.simple_map = generate_maze(self.cols, self.rows)
 
         coin_pos = []
 
