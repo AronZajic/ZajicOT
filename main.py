@@ -9,7 +9,7 @@ import math
 
 light_grey = (200, 200, 200)
 
-key = pg.transform.scale_by(pg.image.load('resources/textures/key/0.png'), 2.3)
+key_iamge = pg.transform.scale_by(pg.image.load('resources/textures/key/0.png'), 2.3)
 
 class Game:
     def __init__(self):
@@ -29,7 +29,6 @@ class Game:
         self.new_game()
 
     def new_game(self):
-        self.key = False
         self.player = Player(self)
         self.map = Map(self)
         self.object_renderer = ObjectRenderer(self)
@@ -66,7 +65,7 @@ class Game:
         self.screen.blit(coin_text, (0, HEIGHT))
 
         if self.key:
-            self.screen.blit(key, (WIDTH - 100, HEIGHT))
+            self.screen.blit(key_iamge, (WIDTH - 100, HEIGHT))
 
         keys = pg.key.get_pressed()
         if keys[pg.K_m]:

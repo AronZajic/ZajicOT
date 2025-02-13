@@ -45,10 +45,10 @@ class Player:
 
         self.check_wall_collision(dx, dy)
 
-        # if keys[pg.K_LEFT]:
-        #     self.angle -= PLAYER_ROT_SPEED * self.game.delta_time
-        # if keys[pg.K_RIGHT]:
-        #     self.angle += PLAYER_ROT_SPEED * self.game.delta_time
+        if keys[pg.K_LEFT]:
+            self.angle -= PLAYER_ROT_SPEED * self.game.delta_time
+        if keys[pg.K_RIGHT]:
+            self.angle += PLAYER_ROT_SPEED * self.game.delta_time
         self.angle %= math.tau
 
     def check_wall(self, x, y):
@@ -67,6 +67,7 @@ class Player:
 
     def check_exit(self, x, y):
         if self.game.map.world_map[(x, y)] == 2 and self.game.key == True:
+            self.game.key = False
             self.game.map.new_map()
             self.x = 1.5
             self.y = 1.5
